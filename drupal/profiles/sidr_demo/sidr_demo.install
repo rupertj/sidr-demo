@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * Implements hook_install()
+ */
+function sidr_demo_install() {
+
+  // Ensure features are installed, cached cleared, etc.
+  features_rebuild();
+
+  // Set the theme for the site.
+  variable_set('theme_default', 'seven');
+
+  // Set front page to admin.
+  variable_set('site_frontpage', 'admin');
+
+  // Disable D7's built in poor man's cron.
+  variable_set('cron_safe_threshold', 0);
+
+  // Let anyone register an account.
+  variable_set('user_register', 1);
+
+  // Let new user accounts straight in.
+  variable_set('user_email_verification', 0);
+}

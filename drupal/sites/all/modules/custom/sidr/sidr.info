@@ -1,0 +1,4 @@
+name = SIDR
+description = "Support module for Silex front end for Drupal."
+package = SIDR
+core = 7.x

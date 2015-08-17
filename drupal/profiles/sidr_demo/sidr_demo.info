@@ -1,0 +1,33 @@
+name = SIDR Demo
+description = SIDR Demo profile
+version = 7.x-1.0
+core = 7.x
+
+; Core dependencies
+dependencies[] = comment
+dependencies[] = field_ui
+dependencies[] = file
+dependencies[] = image
+dependencies[] = list
+dependencies[] = menu
+dependencies[] = number
+dependencies[] = options
+dependencies[] = path
+dependencies[] = search
+dependencies[] = taxonomy
+dependencies[] = toolbar
+
+; Contrib dependencies
+dependencies[] = apachesolr
+dependencies[] = ctools
+dependencies[] = entity
+dependencies[] = entitycache
+dependencies[] = features
+dependencies[] = memcache
+dependencies[] = services
+dependencies[] = services_entity
+dependencies[] = services_views
+dependencies[] = views_ui
+
+; Custom dependencies
+dependencies[] = sidr

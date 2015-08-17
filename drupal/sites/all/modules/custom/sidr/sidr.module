@@ -1,0 +1,106 @@
+<?php
+
+/**
+ * Implements hook_url_inbound_alter()
+ */
+
+function sidr_url_inbound_alter(&$path, $original_path, $path_language) {
+
+  // Services path for a node:
+  // rest/node/12.json
+
+  if (isset($_SERVER['HTTP_ACCEPT'])) {
+    $accept = explode(',', $_SERVER['HTTP_ACCEPT']);
+
+    if (in_array('application/json', $accept)) {
+
+      // $path here is the normalised Drupal path. Make it into the services path if it's a node.
+      if (preg_match('#^node/[0-9]+$#', $path)) {
+
+        // @todo: Make Services endpoint a variable.
+        $path = 'services/' . $path . '.json';
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_menu.
+ * @return mixed
+ */
+function sidr_menu() {
+
+  $items['sidr/views'] = array(
+    'title' => 'list of views as json',
+    'page callback' => 'sidr_views',
+    'type' => MENU_CALLBACK,
+    'access callback' => TRUE,
+  );
+
+  return $items;
+}
+
+/**
+ * Returns information about views so we can set up routing to them.
+ * @return null
+ */
+function sidr_views() {
+
+  $view_paths = array();
+
+  // Retrieve all views that have "services" display.
+  $views = views_get_enabled_views();
+  foreach ($views as $view_name => $view) {
+    foreach ($view->display as $view_display => $display) {
+      if ($display->display_plugin !== 'services') {
+        continue;
+      }
+
+      $view_paths[] = array(
+        'path' => $display->display_options['path'],
+        'title' => $view->get_title(),
+      );
+    }
+  }
+
+  header('Content-type: application/json');
+  print json_encode($view_paths);
+
+  return null;
+}
+
+/**
+ * Implements hook_menu_alter()
+ */
+function sidr_menu_alter() {
+
+  // @todo: Redirect node page in Drupal to front end.
+
+}
+
+
+/**
+ * Implements hook_services_request_postprocess_alter()
+ * @see _services_controller_execute_internals()
+ */
+
+function sidr_services_request_postprocess_alter($controller, $args, $result) {
+  // Used to alter responses from services before they're sent back to the client.
+  // Keeping here as it'll be useful. @todo: Remove if it's not used.
+}
+
+/**
+ * Implements hook_services_request_postprocess_alter()
+ */
+function sidr_services_request_preprocess_alter($controller, &$args, $options) {
+
+  if ($controller['callback'] == 'taxonomy_service_get_tree') {
+
+    // If we passed a machine name here, change it to a vid.
+    // Services doesn't have methods using machine names, annoyingly.
+    if (!is_numeric($args[0])) {
+      $vocab = taxonomy_vocabulary_machine_name_load($args[0]);
+      $args[0] = $vocab->vid;
+    }
+  }
+}
