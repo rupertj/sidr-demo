@@ -1,0 +1,9 @@
+.idea
+.DS_Store
+drupal/sites/default/settings.php
+drupal/sites/default/settings.*.php
+silex/settings.php
+silex/settings.*.php
+silex/vendor/*
+silex/web/css/*
+.sass-cache

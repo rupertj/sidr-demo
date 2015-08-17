@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+  <head>
+    <title>{{ title }}</title>
+    {% block additional_js %}
+    {% endblock %}
+  </head>
+  <body>
+      <ul>
+        <li><a href="/search">Search</a></li>
+        {% if logged_in %}
+        <li><a href="/logout">Log out</a></li>
+        {% else %}
+          <li><a href="/register">Register</a></li>
+          <li><a href="/login">Log in</a></li>
+        {% endif %}
+      </ul>
+
+
+    <section class="site-body">
+
+      {% block title %}
+          <h1>{{ title }}</h1>
+      {% endblock %}
+
+      <div class="messages">
+
+      {% block messages %}
+        {% for message in app.session.getFlashBag.get('message.success') %}
+          <div class="success">
+            {{ message }}
+          </div>
+        {% endfor %}
+        {% for message in app.session.getFlashBag.get('message.warning') %}
+          <div class="warning">
+            {{ message }}
+          </div>
+        {% endfor %}
+        {% for message in app.session.getFlashBag.get('message.info') %}
+          <div class="info">
+            {{ message }}
+          </div>
+        {% endfor %}
+        {% for message in app.session.getFlashBag.get('message.alert') %}
+          <div class="alert">
+            {{ message }}
+          </div>
+        {% endfor %}
+        {% for message in app.session.getFlashBag.get('message.secondary') %}
+          <div class="secondary">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endblock %}
+
+      </div>
+
+      {% block content %}
+        {{ content|raw }}
+      {% endblock %}
+
+    </section>
+
+    {% block footer_js %}
+    {% endblock %}
+
+    {% if app.show_timer %}
+        <footer>{{ app.timer.times() | join("\n") | nl2br }}</footer>
+    {% endif %}
+
+  </body>
+</html>

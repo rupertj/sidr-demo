@@ -1,0 +1,16 @@
+{% extends "page.twig" %}
+
+{% block content %}
+  <div class="view">
+      {% for row in rows %}
+      <div class="row">
+
+          {{ row.nid }}<br>
+          {{ row.path }}<br>
+          {{ row.node_title }}<br>
+          {{ row.description }}<br>
+          {{ row.created }}
+      </div>
+      {% endfor %}
+  </div>
+{% endblock %}

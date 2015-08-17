@@ -1,0 +1,14 @@
+{% extends "page.twig" %}
+
+{% block content %}
+  <div class="row">
+    <div class="column">
+      <p>Are you sure you want to delete the node of type {{ content_type }}?</p>
+      <form method="post" action="/{{ current_url }}">
+        <input type="submit" value="Yes" class="button round" />
+        <input type="hidden" name="content_type" value="{{ content_type }}" />
+        <input type="hidden" name="node_id" value="{{ nid }}" />
+      </form>
+    </div>
+  </div>
+{% endblock %}

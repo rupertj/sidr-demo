@@ -1,0 +1,32 @@
+{% extends "page.twig" %}
+
+{% block title %}
+  <div class="row text-centered title">
+    <div class="small-12 column">
+      <h1>Log in</h1>
+    </div>
+  </div>
+{% endblock %}
+
+{% block personalisation %}
+{% endblock %}
+
+{% block collections %}
+{% endblock %}
+
+{% block content %}
+  <div class="row login-form">
+    <div class="column small-12 medium-6 small-centered">
+      <form method="post" action="/login">
+        <label><span>Username</span><input name="username" type="text" placeholder="Username" /></label>
+        <label><span>Password</span><input name="password" type="password" placeholder="Password" /></label>
+        {# <input type="submit" value="Go!" class="button " /> #}
+         <button class="form-submit fa fa-chevron-right">Go</button>
+        {% if destination %}
+          <input type="hidden" name="destination" value="{{ destination }}" />
+        {% endif %}
+      </form>
+      <p>If you don't have an account yet, you can <a href="/register">create one</a>.</p>
+    </div>
+  </div>
+{% endblock %}

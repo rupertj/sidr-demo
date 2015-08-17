@@ -1,0 +1,47 @@
+{% extends "page.twig" %}
+
+{% block content %}
+  <div class="row">
+    <div class="columns">
+      {{ content|raw }}
+
+      <div class="comment-count">
+        <h3>{{ node.comment_count }} comments</h3>
+      </div>
+
+      <div id="comments" class="comment-listing">
+        {% for comment in node.comments %}
+          {% include 'comment.twig' with { 'title':comment.subject, 'flag_action':comment.flag_action, 'body':comment.comment_body.und.0.safe_value, 'name':comment.name, 'mail':comment.mail, 'created':comment.created, 'nid':node.nid, 'cid':comment.cid, 'pid':comment.pid, 'replies':comment.replies } only %}
+        {% endfor %}
+      </div>
+      {% if logged_in %}
+      <div class="comment-form">
+        <h3>Add new comment</h3>
+        <form class="comment-form" action="/comment" method="post" id="comment-form" accept-charset="UTF-8">
+          <label for="comment-body">Comment <span class="form-required" title="This field is required.">*</span>
+          </label>
+          <textarea class="required" id="comment-body" name="body" rows="6"></textarea>
+          <input type="hidden" name="nid" value="{{ node.nid }}" />
+          <input type="hidden" name="cid" value="{{ node.cid }}" />
+          <input type="hidden" name="current_url" value="{{ current_url }}" />
+          {# <input type="submit" id="edit-submit" name="op" value="Post comment" class="form-submit"> #}
+          <button id="edit-submit" name="op" class="form-submit fa fa-chevron-right">Post comment</button>
+
+        </form>
+      </div>
+      {% else %}
+      <span>Please <a href="/login?destination=node/{{ node.nid }}">login</a> to leave a comment.</span>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block footer_js %}
+  {% if logged_in %}
+    <script type="text/javascript">
+      var node_id = {{ node.nid}};
+      var user_id = {{ user.uid}};
+    </script>
+    <script src="/js/node-tracking.js"></script>
+  {% endif %}
+{% endblock %}

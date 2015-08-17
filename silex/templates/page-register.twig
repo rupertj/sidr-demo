@@ -1,0 +1,32 @@
+{% extends "page.twig" %}
+
+{% block additional_js %}
+  <script type="text/javascript" src="/js/register.js"></script>
+{% endblock %}
+
+{% block title %}
+  <div class="row text-centered title">
+    <div class="small-12 column">
+      <h1>Register</h1>
+    </div>
+  </div>
+{% endblock %}
+
+{% block personalisation %}
+{% endblock %}
+
+{% block content %}
+  <div class="row register">
+    <div class="column small-12 medium-6 small-centered">
+      <form method="post" action="/register" class="register">
+        <label>First name<input name="first_name" type="text" class="name" /></label>
+        <label>Last name<input name="last_name" type="text" class="name" /></label>
+        <p class="name_preview"></p>
+        <label>Email address<input name="email" type="email" /></label>
+        <label>Password<input name="password" type="password" /></label>
+        <label>Confirm password<input name="password_confirm" type="password" /></label>
+        <input type="submit" value="Go!" class="button round" />
+      </form>
+    </div>
+  </div>
+{% endblock %}

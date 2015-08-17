@@ -1,0 +1,108 @@
+{% extends "page.twig" %}
+
+{% block title %}
+{% endblock %}
+
+{% block introForm %}
+  <div class="profile-summary">
+    <div class="row">
+      <div class="column small-12 medium-6">
+        <div class="circle"></div>
+      </div>
+      <div class="column small-12 medium-6">
+        <span>Your profile</span>
+        {% if username %}
+          <h3 class="username">{{ username }}</h3>
+        {% else %}
+          <h3 class="username">John Smith</h3>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {# See form-intro.twig #}
+  {{ app.personalisation.introForm()|raw }}
+{% endblock %}
+
+{% block subMenu %}
+  <div class="dashboard-summary">
+    <div class="row">
+      <ul class="dash-summary-items">
+        <li>
+          <i class="fa fa-folder-open-o"></i>
+          <span>{{ no_of_collections }} collections</span>
+        </li>
+        <li>
+          <i class="fa fa-file-text-o"></i>
+          <span>{{ no_of_articles }} articles</span>
+        </li>
+        <li>
+          <i class="fa fa-map-marker"></i>
+          <span>0 locations</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="account-menu-wrapper">
+    <div class="row">
+      <div class="columns">
+        <ul class="account-menu">
+          <li><a href="/dashboard">Your collections</a></li>
+          <li><a href="/account" class="active">Your account</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div class="row account-intro">
+    <div class="columns">
+      <p>
+        This is a free service run by the charity Bloodwise.<br />
+        Don't worry, we won't give your details to anyone else.
+      </p>
+    </div>
+  </div>
+
+  <form method="post" action="/account" class="account-form">
+    <div class="row">
+      <div class="small-12 medium-8 large-6 small-centered columns">
+          <label><span>Display name</span>
+            <input name="display_name" type="text" value="{{ username }}" placeholder="Display name" />
+          </label>
+          <label><span>First name</span>
+            <input name="first_name" type="text" value="{{ user.first_name.und.0.value }}" placeholder="First name" />
+          </label>
+          <label><span>Last name</span>
+            <input name="last_name" type="text" value="{{ user.last_name.und.0.value }}" placeholder="Last name" />
+          </label>
+      </div>
+    </div>
+
+    <div class="account-password-wrapper">
+      <div class="row">
+        <div class="small-12 medium-8 large-6 small-centered columns">
+          <label><span>Password</span>
+            <input name="password" type="password" value="******" placeholder="Password" />
+          </label>
+          <label><span>Confirm password</span>
+            <input name="password_confirm" type="password" value="******" placeholder="Confirm password" />
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 medium-8 large-6 small-centered columns">
+        <label>Email</label>
+          <input name="email" type="text" value="{{ user.mail }}" placeholder="Email" />
+
+
+          {# <input type="submit" value="Save changes" class="button" /> #}
+          <button class="form-submit fa fa-chevron-right">Save changes</button>
+
+      </div>
+    </div>
+  </form>
+
+{% endblock %}
