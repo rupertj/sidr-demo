@@ -30,7 +30,6 @@ $app->get('/user/{user_id}/', 'SIDR\ProfileController::viewAccount');
 $app->get('/{content_type}/add', 'SIDR\NodeController::add');
 $app->post('/{content_type}/add', 'SIDR\NodeController::addSubmit');
 
-// Route to delete a user's collection
 $app->get('/{content_type}/{node_id}/delete', 'SIDR\NodeController::delete');
 $app->post('/{content_type}/{node_id}/delete', 'SIDR\NodeController::deleteSubmit');
 
