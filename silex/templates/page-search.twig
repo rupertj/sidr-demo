@@ -1,32 +1,24 @@
 {% extends "page.twig" %}
 
 {% block content %}
+
   {# Search form #}
-  <div class="row">
-    <div class="columns">
-      <form action="/search" method="get">
-        <div class="row collapse">
-          <div class="small-8 medium-10 columns">
-            <input type="search" name="query" placeholder="Search" />
-          </div>
-          <div class="small-4 medium-2 columns">
-            <input type="submit" value="Search" class="button postfix" />
-          </div>
-        </div>
-      </form>
 
-      <p>{{ result_count }} results found.</p>
+  <form action="/search" method="get">
+    <input type="search" name="query" placeholder="Search" />
+    <input type="submit" value="Search" />
+  </form>
 
-      <ul>
-        {% for row in results %}
-            <li>
-                {{ row.entity_id }}<br>
-                {{ row.path_alias }}<br>
-                {{ row.label }}<br>
-                {{ row.teaser }}
-            </li>
-        {% endfor %}
-      </ul>
-    </div>
-  </div>
+  <p>{{ result_count }} results found.</p>
+
+  <ul>
+    {% for row in results %}
+        <li>
+            {{ row.entity_id }}<br>
+            {{ row.path_alias }}<br>
+            {{ row.label }}<br>
+            {{ row.teaser }}
+        </li>
+    {% endfor %}
+  </ul>
 {% endblock %}
