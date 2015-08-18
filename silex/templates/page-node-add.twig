@@ -1,18 +1,14 @@
 {% extends "page.twig" %}
 
 {% block content %}
-  <div class="row">
-    <div class="columns">
-      <form method="post" action="/node/add">
-        <label>Title<input name="title" type="text" /></label>
-        <label>Content<textarea name="content" rows="10"></textarea></label>
-        {% if content_type == 'collection' %}
-          <label>Public</label>
-          <input type="checkbox" name="public" value="1"> Public
-        {% endif %}
-        <input type="submit" value="Go!" class="button round" />
-        <input type="hidden" name="content_type" value="{{ content_type }}" />
-      </form>
-    </div>
-  </div>
+<form method="post" action="/node/add">
+    <label>
+        Title<input name="title" type="text" />
+    </label>
+    <label>
+        Content<textarea name="content" rows="10"></textarea>
+    </label>
+    <input type="submit" value="Go!" />
+    <input type="hidden" name="content_type" value="{{ content_type }}" />
+</form>
 {% endblock %}
