@@ -1,5 +1,5 @@
 # sidr-demo
-Example/Demo site for how to use sidr.
+Example/Demo site for how to use SIDR: A Silex front-end for Drupal.
 
 To use this:
 
